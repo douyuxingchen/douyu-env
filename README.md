@@ -1,2 +1,1 @@
-# douyu-env
-PHP项目开发环境
+# PHP项目Docker开发环境
