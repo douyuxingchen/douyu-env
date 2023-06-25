@@ -31,9 +31,9 @@ services:
     build:
       context: ./services/php
       args:
-        PHP_VERSION: php:7.4.27-fpm-alpine
+        PHP_VERSION: php:7.3.27-fpm-alpine
         CONTAINER_PACKAGE_URL: mirrors.ustc.edu.cn
-        PHP_EXTENSIONS: pdo_mysql,mysqli,mbstring,gd,curl,opcache
+        PHP_EXTENSIONS: pdo_mysql,mysqli,mysql,redis,mbstring,gd,curl,apcu,opcache,gmagick,imagick,xdebug
         TZ: "Asia/Shanghai"
     container_name: php
     expose:
@@ -47,6 +47,8 @@ services:
       - ./logs/php:/var/log/php
       - ./data/composer:/tmp/composer
     restart: always
+    environment:
+      APP_ENV: "dev"
     cap_add:
       - SYS_PTRACE
     networks:
