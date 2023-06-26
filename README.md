@@ -14,3 +14,11 @@ docker compose up -d
 # {dir} 请更换为具体的项目目录
 docker exec -i php sh -c "cd /www/{dir} && composer install --no-dev"
 ```
+
+4. 配置hosts
+```text
+# 运营后台Api
+127.0.0.1 dev.admin.api.dyxc.com
+# 渠道管理Api
+127.0.0.1 dev.channel.api.dyxc.com
+```
