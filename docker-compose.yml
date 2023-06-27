@@ -33,7 +33,7 @@ services:
       args:
         PHP_VERSION: php:7.4.27-fpm-alpine
         CONTAINER_PACKAGE_URL: mirrors.ustc.edu.cn
-        PHP_EXTENSIONS: pdo_mysql,mysqli,mysql,redis,mbstring,gd,curl,apcu,opcache,gmagick,imagick,xdebug,zip,bcmath
+        PHP_EXTENSIONS: pdo_mysql,mysqli,mysql,redis,mbstring,gd,curl,apcu,opcache,gmagick,imagick,xdebug,zip,bcmath,http
         TZ: "Asia/Shanghai"
     container_name: php
     expose:
