@@ -31,7 +31,7 @@ services:
     build:
       context: ./services/php
       args:
-        PHP_VERSION: php:7.3.27-fpm-alpine
+        PHP_VERSION: php:7.4.27-fpm-alpine
         CONTAINER_PACKAGE_URL: mirrors.ustc.edu.cn
         PHP_EXTENSIONS: pdo_mysql,mysqli,mysql,redis,mbstring,gd,curl,apcu,opcache,gmagick,imagick,xdebug,zip,bcmath
         TZ: "Asia/Shanghai"
@@ -54,38 +54,38 @@ services:
     networks:
       - default
 
-  mysql:
-    image: mysql/mysql-server:5.7.28
-    container_name: mysql
-    ports:
-      - "3306:3306"
-    volumes:
-      - ./services/mysql/mysql.cnf:/etc/mysql/conf.d/mysql.cnf:ro
-      - ./data/mysql:/var/lib/mysql/:rw
-      - ./logs/mysql:/var/log/mysql/:rw
+#  mysql:
+#    image: mysql/mysql-server:5.7.28
+#    container_name: mysql
+#    ports:
+#      - "3306:3306"
+#    volumes:
+#      - ./services/mysql/mysql.cnf:/etc/mysql/conf.d/mysql.cnf:ro
+#      - ./data/mysql:/var/lib/mysql/:rw
+#      - ./logs/mysql:/var/log/mysql/:rw
+#
+#    restart: always
+#    networks:
+#      - default
+#    environment:
+#      MYSQL_ROOT_PASSWORD: "root"
+#      MYSQL_ROOT_HOST: "%"
+#      TZ: "Asia/Shanghai"
 
-    restart: always
-    networks:
-      - default
-    environment:
-      MYSQL_ROOT_PASSWORD: "root"
-      MYSQL_ROOT_HOST: "%"
-      TZ: "Asia/Shanghai"
-
-  redis:
-    image: redis:5.0.3-alpine
-    container_name: redis
-    ports:
-      - "6379:6379"
-    volumes:
-      - ./services/redis/redis.conf:/etc/redis.conf:ro
-      - ./data/redis:/data/:rw
-    restart: always
-    entrypoint: ["redis-server", "/etc/redis.conf"]
-    environment:
-      TZ: "Asia/Shanghai"
-    networks:
-      - default
+#  redis:
+#    image: redis:5.0.3-alpine
+#    container_name: redis
+#    ports:
+#      - "6379:6379"
+#    volumes:
+#      - ./services/redis/redis.conf:/etc/redis.conf:ro
+#      - ./data/redis:/data/:rw
+#    restart: always
+#    entrypoint: ["redis-server", "/etc/redis.conf"]
+#    environment:
+#      TZ: "Asia/Shanghai"
+#    networks:
+#      - default
 
 networks:
   default:
