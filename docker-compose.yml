@@ -20,7 +20,7 @@ services:
       - ./logs/nginx:/var/log/nginx/:rw
     environment:
       TZ: "Asia/Shanghai"
-    restart: always
+    # restart: always
     networks:
       - default
       # 可以把-default 改成下列配置，以固定容器IP
@@ -46,7 +46,7 @@ services:
       - ./services/php/php-fpm.conf:/usr/local/etc/php-fpm.d/www.conf:rw
       - ./logs/php:/var/log/php
       - ./data/composer:/tmp/composer
-    restart: always
+    # restart: always
     environment:
       APP_ENV: "develop"
     cap_add:
@@ -54,38 +54,38 @@ services:
     networks:
       - default
 
-#  mysql:
-#    image: mysql/mysql-server:5.7.28
-#    container_name: mysql
-#    ports:
-#      - "3306:3306"
-#    volumes:
-#      - ./services/mysql/mysql.cnf:/etc/mysql/conf.d/mysql.cnf:ro
-#      - ./data/mysql:/var/lib/mysql/:rw
-#      - ./logs/mysql:/var/log/mysql/:rw
-#
-#    restart: always
-#    networks:
-#      - default
-#    environment:
-#      MYSQL_ROOT_PASSWORD: "root"
-#      MYSQL_ROOT_HOST: "%"
-#      TZ: "Asia/Shanghai"
+  mysql:
+    image: mysql/mysql-server:5.7.28
+    container_name: mysql
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./services/mysql/mysql.cnf:/etc/mysql/conf.d/mysql.cnf:ro
+      - ./data/mysql:/var/lib/mysql/:rw
+      - ./logs/mysql:/var/log/mysql/:rw
 
-#  redis:
-#    image: redis:5.0.3-alpine
-#    container_name: redis
-#    ports:
-#      - "6379:6379"
-#    volumes:
-#      - ./services/redis/redis.conf:/etc/redis.conf:ro
-#      - ./data/redis:/data/:rw
-#    restart: always
-#    entrypoint: ["redis-server", "/etc/redis.conf"]
-#    environment:
-#      TZ: "Asia/Shanghai"
-#    networks:
-#      - default
+    # restart: always
+    networks:
+      - default
+    environment:
+      MYSQL_ROOT_PASSWORD: "root"
+      MYSQL_ROOT_HOST: "%"
+      TZ: "Asia/Shanghai"
+
+  redis:
+    image: redis:5.0.3-alpine
+    container_name: redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./services/redis/redis.conf:/etc/redis.conf:ro
+      - ./data/redis:/data/:rw
+    # restart: always
+    entrypoint: ["redis-server", "/etc/redis.conf"]
+    environment:
+      TZ: "Asia/Shanghai"
+    networks:
+      - default
 
 networks:
   default:
