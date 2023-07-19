@@ -1,15 +1,14 @@
 # PHP项目Docker开发环境
 
 ## 搭建步骤
+根据自己的电脑系统去[Docker官网](https://www.docker.com)下载并安装docker环境
 
-1. 根据自己的电脑系统去[Docker官网](https://www.docker.com)下载并安装docker环境
-
-2. 启动容器
+启动容器
 ```bash
 docker compose up -d
 ```
 
-3配置hosts(本地环境需要配置)
+配置hosts(本地环境需配置)
 ```text
 # 运营后台Api
 127.0.0.1 dev.admin.api.com
@@ -19,10 +18,36 @@ docker compose up -d
 127.0.0.1 dev.channel.platform.api.com
 ```
 
-4. 安装composer依赖
+安装Composer依赖
 ```bash
-# {dir} 请更换为具体的项目目录
-docker exec -i php sh -c "cd /www/{dir} && composer install --no-dev"
+# 进入容器
+docker exec -i php sh
+
+# 进入项目根目录
+cd /www/xxx
+
+# 安装依赖
+composer install --no-dev
 ```
 
+## 常见问题
 
+### 访问报500错误
+- 因为配置的是虚拟域名，所以本地不能开VPN，除非你配置了规则代理绕过虚拟域名
+- 是否安装了vendor依赖
+- 是否创建了`storage`中的缓存目录
+
+### win10无法启动
+在使用WSL2 跑 Docker 时，容器可能会因为内存不足显示Exited (139)。  
+这个是wsl2的锅，解决方案如下。  
+在Windows 10 操作系统的系统盘- 用户 - <用户名>目录下，修改.wslconfig文件（如C:\Users\zhu.wslconfig)，若没有这个文件，则需要先创建。
+
+在其中修改/添加如下内容：
+```text
+[wsl2]
+kernelCommandLine = vsyscall=emulate
+```
+**电脑重启后生效**
+
+### win10 提示：WSL 2 installation is incomplete
+更新 WSL：https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi
