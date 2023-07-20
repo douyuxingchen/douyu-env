@@ -22,10 +22,10 @@ services:
       TZ: "Asia/Shanghai"
     # restart: always
     networks:
-      - default
+#      - default
       # 可以把-default 改成下列配置，以固定容器IP
-      #default:
-      #  ipv4_address: 10.0.0.10
+      default:
+        ipv4_address: 10.0.0.10
 
   php:
     build:
@@ -40,6 +40,9 @@ services:
       - 9501
     extra_hosts:
       - "www.site1.com:172.17.0.1"
+      - "dev.admin.api.com:10.0.0.10"
+      - "dev.channel.api.com:10.0.0.10"
+      - "dev.channel.platform.api.com:10.0.0.10"
     volumes:
       - ../:/www/:rw
       - ./services/php/php.ini:/usr/local/etc/php/php.ini:ro
@@ -52,7 +55,9 @@ services:
     cap_add:
       - SYS_PTRACE
     networks:
-      - default
+#      - default
+      default:
+        ipv4_address: 10.0.0.11
 
   mysql:
     image: mysql/mysql-server:5.7.28
@@ -63,14 +68,15 @@ services:
       - ./services/mysql/mysql.cnf:/etc/mysql/conf.d/mysql.cnf:ro
       - ./data/mysql:/var/lib/mysql/:rw
       - ./logs/mysql:/var/log/mysql/:rw
-
-    # restart: always
-    networks:
-      - default
     environment:
       MYSQL_ROOT_PASSWORD: "root"
       MYSQL_ROOT_HOST: "%"
       TZ: "Asia/Shanghai"
+    # restart: always
+    networks:
+#      - default
+      default:
+        ipv4_address: 10.0.0.12
 
   redis:
     image: redis:5.0.3-alpine
@@ -85,13 +91,15 @@ services:
     environment:
       TZ: "Asia/Shanghai"
     networks:
-      - default
+#      - default
+      default:
+        ipv4_address: 10.0.0.13
 
 networks:
   default:
     driver: bridge
     ipam:
-      driver: default
+#      driver: default
       # 解除下面的注释可以设置网段，用于nginx等容器固定容器IP
-      #config:
-      #  - subnet: 10.0.0.0/24
+      config:
+        - subnet: 10.0.0.0/24
