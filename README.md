@@ -18,6 +18,18 @@ docker compose up -d
 127.0.0.1 dev.channel.platform.api.com
 ```
 
+配置composer权限
+
+因为composer中某些库依赖于私有库，因此你需要进行如下配置，即可使用composer拉取私有库的依赖。
+```bash
+# 添加配置
+composer config -g http-basic.e.coding.net username password
+# 删除配置
+composer config -g --unset http-basic.e.coding.net
+# 查看配置
+composer config -g -l
+```
+
 安装Composer依赖
 ```bash
 # 进入容器
