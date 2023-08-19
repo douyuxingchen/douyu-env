@@ -18,6 +18,14 @@ down: ## Docker容器销毁
 #composer-update: ## Composer依赖更新
 #	docker exec -i php sh -c "cd /www/api && composer update --no-dev"
 
+.PHONY:log-nginx
+log-nginx: ## 监听Nginx日志
+	 tail -f ./logs/nginx/*.log
+
+.PHONY:log
+log: ## 监听项目日志
+	 find ./logs/project -type f -name "*.log" -exec tail -f {} +
+
 .PHONY:help
 .DEFAULT_GOAL:=help
 help:
