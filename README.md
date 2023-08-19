@@ -3,12 +3,12 @@
 ## 搭建步骤
 根据自己的电脑系统去[Docker官网](https://www.docker.com)下载并安装docker环境
 
-启动容器
+### 启动容器
 ```bash
 docker compose up -d
 ```
 
-配置hosts(本地环境需配置)
+### 配置hosts(本地环境需配置)
 ```text
 # 运营后台Api
 127.0.0.1 dev.admin.api.com
@@ -18,8 +18,7 @@ docker compose up -d
 127.0.0.1 dev.channel.platform.api.com
 ```
 
-配置composer权限
-
+### 配置composer权限
 因为composer中某些库依赖于私有库，因此你需要进行如下配置，即可使用composer拉取私有库的依赖。
 ```bash
 # 添加配置
@@ -30,7 +29,7 @@ composer config -g --unset http-basic.e.coding.net
 composer config -g -l
 ```
 
-安装Composer依赖
+### 安装Composer依赖
 ```bash
 # 进入容器
 docker exec -i php sh
@@ -41,6 +40,20 @@ cd /www/xxx
 # 安装依赖
 composer install --no-dev
 ```
+
+### env文件配置
+将env文件复制一份命名为 `.env.dev`
+```bash
+cp .env.test .env.dev
+```
+
+### 日志路径修改
+在 `.env.dev` 文件中，将日志输出目录指定为你的日志目录，例如：
+```text
+/www/douyu-env/logs/project/
+```
+
+
 
 ## 常见问题
 

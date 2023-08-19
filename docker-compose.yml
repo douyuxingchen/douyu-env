@@ -51,7 +51,7 @@ services:
       - ./data/composer:/tmp/composer
     # restart: always
     environment:
-      APP_ENV: "develop"
+      APP_ENV: "dev"
     cap_add:
       - SYS_PTRACE
     networks:
