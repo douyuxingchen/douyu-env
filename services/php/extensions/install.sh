@@ -727,6 +727,11 @@ if [[ -z "${EXTENSIONS##*,sdebug,*}" ]]; then
     fi
 fi
 
+if [[ -z "${EXTENSIONS##*,imagick,*}" ]]; then
+    echo "---------- Install imagick ----------"
+    installExtensionFromTgz imagick-3.4.4
+fi
+
 if [ "${PHP_EXTENSIONS}" != "" ]; then
     apk del .build-deps \
     && docker-php-source delete
