@@ -66,22 +66,7 @@ kernelCommandLine = vsyscall=emulate
 
 
 ### 项目启动错误
-由于项目并没有创建某些目录，导致项目访问报错，所以你可以使用一下的 shell 脚本，将其置于项目根目录创建必要的项目缓存目录。
+由于项目并没有创建某些目录，导致项目访问报错，所以你可以使用一下的 shell 命令，将其置于项目根目录创建必要的项目缓存目录。
 ```bash
-#!/bin/bash
-
-create_directory() {
-    local directory="$1"
-
-    if [ ! -d "$directory" ]; then
-        mkdir -p "$directory"
-        echo "目录已创建: $directory"
-    else
-        echo "目录已存在: $directory"
-    fi
-}
-
-create_directory "./bootstrap/cache"
-create_directory "./storage/app"
-create_directory "./bootstrap/framework"
+mkdir -p storage/app storage/logs storage/framework/cache storage/framework/sessions storage/framework/views storage/framework/testing
 ```

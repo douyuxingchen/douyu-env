@@ -11,6 +11,9 @@ create_directory() {
     fi
 }
 
-create_directory "./bootstrap/cache"
 create_directory "./storage/app"
-create_directory "./bootstrap/framework"
+create_directory "./storage/logs"
+create_directory "./storage/framework/cache"
+create_directory "./storage/framework/sessions"
+create_directory "./storage/framework/views"
+create_directory "./storage/framework/testing"
