@@ -60,7 +60,7 @@ services:
         ipv4_address: 10.0.0.11
 
   mysql:
-    image: mysql/mysql-server:5.7.28
+    image: mysql/mysql-server:8.0
     container_name: mysql
     ports:
       - "3306:3306"
@@ -94,6 +94,85 @@ services:
 #      - default
       default:
         ipv4_address: 10.0.0.13
+
+#  elasticsearch:
+#    build:
+#      context: ./services/elasticsearch
+#      args:
+#        ELASTICSEARCH_VERSION: 7.1.1
+#        ELASTICSEARCH_PLUGINS: analysis-ik
+#    container_name: elasticsearch
+#    environment:
+#      - TZ=Asia/Shanghai
+#      - discovery.type=single-node
+#      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+#    volumes:
+#      - ./data/esdata:/usr/share/elasticsearch/data
+#      - ./services/elasticsearch/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+#    hostname: elasticsearch
+##    restart: always
+#    ports:
+#      - "9200:9200"
+#      - "9300:9300"
+#    networks:
+#      #      - default
+#      default:
+#        ipv4_address: 10.0.0.14
+#
+#  kibana:
+#    image: kibana:7.1.1
+#    container_name: kibana
+#    environment:
+#      TZ: "Asia/Shanghai"
+#      elasticsearch.hosts: http://elasticsearch:9200
+#      I18N_LOCALE: "zh-CN"
+#    hostname: kibana
+#    depends_on:
+#      - elasticsearch
+##    restart: always
+#    ports:
+#      - "5601:5601"
+#    networks:
+#      #      - default
+#      default:
+#        ipv4_address: 10.0.0.15
+#
+#  logstash:
+#    image: logstash:7.1.1
+#    container_name: logstash
+#    hostname: logstash
+##    restart: always
+#    depends_on:
+#      - elasticsearch
+#    environment:
+#      TZ: "Asia/Shanghai"
+#    ports:
+#      - "9600:9600"
+#      - "5044:5044"
+#    networks:
+#      #      - default
+#      default:
+#        ipv4_address: 10.0.0.16
+
+  rabbitmq:
+    build:
+      context: ./services/rabbitmq
+      args:
+        RABBITMQ_VERSION: management
+        RABBITMQ_PLUGINS: rabbitmq_amqp1_0
+    container_name: rabbitmq
+    restart: always
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+       TZ: "Asia/Shanghai"
+       RABBITMQ_DEFAULT_USER: "libin"
+       RABBITMQ_DEFAULT_PASS: "libin666"
+    networks:
+      #      - default
+      default:
+        ipv4_address: 10.0.0.17
 
 networks:
   default:
