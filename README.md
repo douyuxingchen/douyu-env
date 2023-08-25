@@ -50,7 +50,7 @@ cp .env.test .env.dev
 ### 日志路径修改
 在 `.env.dev` 文件中，将日志输出目录指定为你的日志目录，例如：
 ```text
-/www/douyu-env/logs/project/
+LOG_DIR=/www/douyu-env/logs/project/
 ```
 
 
