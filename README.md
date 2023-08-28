@@ -16,6 +16,8 @@ docker compose up -d
 127.0.0.1 dev.channel.api.com
 # 渠道对接平台
 127.0.0.1 dev.channel.platform.api.com
+# SCRM系统Api
+127.0.0.1 dev.scrm.api.com
 ```
 
 ### 配置composer权限
