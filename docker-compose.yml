@@ -161,7 +161,6 @@ services:
         RABBITMQ_VERSION: management
         RABBITMQ_PLUGINS: rabbitmq_amqp1_0
     container_name: rabbitmq
-    restart: always
     ports:
       - "5672:5672"
       - "15672:15672"
@@ -170,9 +169,24 @@ services:
        RABBITMQ_DEFAULT_USER: "libin"
        RABBITMQ_DEFAULT_PASS: "libin666"
     networks:
-      #      - default
       default:
         ipv4_address: 10.0.0.17
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: phpmyadmin
+    ports:
+      - "8080:80"
+    volumes:
+      - ./services/phpmyadmin/config.user.inc.php:/etc/phpmyadmin/config.user.inc.php:ro
+      - ./services/phpmyadmin/php-phpmyadmin.ini:/usr/local/etc/php/conf.d/php-phpmyadmin.ini:ro
+    environment:
+      - PMA_HOST=mysql
+      - PMA_PORT=3306
+      - TZ="Asia/Shanghai"
+    networks:
+      default:
+        ipv4_address: 10.0.0.18
 
 networks:
   default:
