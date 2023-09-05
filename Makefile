@@ -2,6 +2,10 @@
 build: ## Docker编译
 	docker compose -f docker-compose.yml build
 
+.PHONY:build-no-c
+build-no-c: ## Docker编译(不使用缓存)
+	docker compose -f docker-compose.yml build --no-cache
+
 .PHONY:up
 up: ## Docker容器启动
 	docker compose -f docker-compose.yml up -d
