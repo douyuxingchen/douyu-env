@@ -21,6 +21,7 @@ RUN chmod uga+x /usr/local/bin/install-php-extensions
 RUN apk --no-cache add tzdata \
     && apk --no-cache add bash \
     && apk --no-cache add vim \
+    && apk --no-cache add git \
     && cp "/usr/share/zoneinfo/$TZ" /etc/localtime \
     && echo "$TZ" > /etc/timezone
 
