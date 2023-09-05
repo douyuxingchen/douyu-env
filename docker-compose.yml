@@ -35,9 +35,6 @@ services:
         CONTAINER_PACKAGE_URL: mirrors.ustc.edu.cn
         PHP_EXTENSIONS: pdo_mysql,mysqli,mysql,redis,mbstring,gd,curl,apcu,opcache,gmagick,imagick,xdebug,zip,bcmath,http
         TZ: "Asia/Shanghai"
-        CODING_URL: ${CODING_URL}
-        CODING_ACCOUNT: ${CODING_ACCOUNT}
-        CODING_PASSWORD: ${CODING_PASSWORD}
     container_name: php
     expose:
       - 9501
