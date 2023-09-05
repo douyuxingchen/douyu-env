@@ -25,6 +25,8 @@ docker compose up -d
 127.0.0.1 dev.channel.platform.api.com
 # SCRM系统Api
 127.0.0.1 dev.scrm.api.com
+# mapi系统
+127.0.0.1 dev.mapi.api.com
 ```
 
 ### 安装Composer依赖
