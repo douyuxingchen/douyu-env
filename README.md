@@ -3,6 +3,13 @@
 ## 搭建步骤
 根据自己的电脑系统去[Docker官网](https://www.docker.com)下载并安装docker环境
 
+## 环境配置文件更新
+
+```bash
+cp .env.example .env
+```
+在其中配置你的 coding 的账号和密码，此目的为了用 HTTP 协议拉取私有的 Composer 库。
+
 ### 启动容器
 ```bash
 docker compose up -d
@@ -20,17 +27,6 @@ docker compose up -d
 127.0.0.1 dev.scrm.api.com
 ```
 
-### 配置composer权限
-因为composer中某些库依赖于私有库，因此你需要进行如下配置，即可使用composer拉取私有库的依赖。
-```bash
-# 添加配置
-composer config -g http-basic.e.coding.net username password
-# 删除配置
-composer config -g --unset http-basic.e.coding.net
-# 查看配置
-composer config -g -l
-```
-
 ### 安装Composer依赖
 ```bash
 # 进入容器
@@ -40,7 +36,7 @@ docker exec -i php sh
 cd /www/xxx
 
 # 安装依赖
-composer install --no-dev
+composer install --ignore-platform-reqs --no-dev
 ```
 
 ### env文件配置
@@ -79,6 +75,16 @@ kernelCommandLine = vsyscall=emulate
 ### win10 提示：WSL 2 installation is incomplete
 更新 WSL：https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi
 
+### SSH协议拉取私有库失败
+某些私有库需要使用SSH协议拉取私有库，所以会遇到composer拉取失败的情况。
+在PHP容器中，在Dockerfile中已经自动生成了SSH的密钥，所以你只需要将此公钥加入到 coding 中即可。
+
+```bash
+# 进入PHP容器
+docker exec -it php sh
+# 查看公钥
+cat ~/.ssh/id_rsa.pub
+```
 
 ### 项目启动错误
 由于项目并没有创建某些目录，导致项目访问报错，所以你可以使用一下的 shell 命令，将其置于项目根目录创建必要的项目缓存目录。

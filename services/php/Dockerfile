@@ -22,6 +22,7 @@ RUN apk --no-cache add tzdata \
     && apk --no-cache add bash \
     && apk --no-cache add vim \
     && apk --no-cache add git \
+    && apk --no-cache add openssh \
     && cp "/usr/share/zoneinfo/$TZ" /etc/localtime \
     && echo "$TZ" > /etc/timezone
 
@@ -42,3 +43,19 @@ RUN apk --no-cache add shadow && usermod -u 1000 www-data && groupmod -g 1000 ww
 
 
 WORKDIR /www
+
+
+# 全局配置 coding 账号和密码
+# 因为composer中某些库依赖于私有库，因此你需要进行如下配置，即可使用composer拉取http协议的私有库的依赖。
+ARG CODING_URL
+ARG CODING_ACCOUNT
+ARG CODING_PASSWORD
+RUN composer config -g ${CODING_URL} ${CODING_ACCOUNT} ${CODING_PASSWORD}
+
+# SSH密钥配置
+# ssh协议拉取企业私有的composer依赖库
+RUN git config --global user.name "php_container" \
+    && git config --global user.email ${CODING_ACCOUNT} \
+    && mkdir -p /root/.ssh && chmod 0700 /root/.ssh \
+    && ssh-keygen -t rsa -N '' -f /root/.ssh/id_rsa \
+    && cat /root/.ssh/id_rsa.pub
