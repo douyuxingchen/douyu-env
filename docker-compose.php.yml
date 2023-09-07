@@ -1,0 +1,41 @@
+version: "3"
+services:
+
+  php-fpm:
+    build:
+      context: ./services/php-env
+      args:
+        PHP_VERSION: php:7.3.27-fpm-alpine
+        CONTAINER_PACKAGE_URL: mirrors.ustc.edu.cn
+        PHP_EXTENSIONS: pdo_mysql,mysqli,mysql,redis,mbstring,gd,curl,apcu,opcache,gmagick,imagick,xdebug,zip,bcmath,http
+        TZ: "Asia/Shanghai"
+        CODING_URL: ${CODING_URL}
+        CODING_ACCOUNT: ${CODING_ACCOUNT}
+        CODING_PASSWORD: ${CODING_PASSWORD}
+    container_name: php-fpm
+    ports:
+      - "80:80"
+      - "443:443"
+    expose:
+      - 9501
+    extra_hosts:
+      - "www.site1.com:172.17.0.1"
+    volumes:
+      - ../:/www/:rw
+      - ./services/php/php.ini:/usr/local/etc/php/php.ini:ro
+      - ./services/php/php-fpm.conf:/usr/local/etc/php-fpm.d/www.conf:rw
+      - ./logs/php:/var/log/php
+      - ./data/composer:/tmp/composer
+    # restart: always
+    environment:
+      APP_ENV: "dev"
+    cap_add:
+      - SYS_PTRACE
+    networks:
+      - default
+
+networks:
+  default:
+    driver: bridge
+    ipam:
+      driver: default
