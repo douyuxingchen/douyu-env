@@ -9,8 +9,12 @@ on:
 jobs:
 
   build:
-
     runs-on: ubuntu-latest
+
+    env:
+      CODING_URL: "http-basic.github.com"
+      CODING_ACCOUNT: "example@gmail.com"
+      CODING_PASSWORD: "example"
 
     steps:
     - uses: actions/checkout@v3

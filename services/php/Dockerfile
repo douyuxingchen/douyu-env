@@ -54,7 +54,8 @@ RUN composer config -g ${CODING_URL} ${CODING_ACCOUNT} ${CODING_PASSWORD}
 
 # SSH密钥配置
 # ssh协议拉取企业私有的composer依赖库
-RUN git config --global user.name "php_container" \
+RUN git --version \
+    && git config --global user.name "php_container" \
     && git config --global user.email ${CODING_ACCOUNT} \
     && mkdir -p /root/.ssh && chmod 0700 /root/.ssh \
     && ssh-keygen -t rsa -N '' -f /root/.ssh/id_rsa \
