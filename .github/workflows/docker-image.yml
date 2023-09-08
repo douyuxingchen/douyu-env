@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      CODING_URL: "github.com"
+      CODING_URL: "http-basic.github.com"
       CODING_ACCOUNT: "example@gmail.com"
       CODING_PASSWORD: "example"
 
