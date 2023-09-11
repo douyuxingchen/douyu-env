@@ -22,6 +22,10 @@ down: ## Docker容器销毁
 #composer-update: ## Composer依赖更新
 #	docker exec -i php sh -c "cd /www/api && composer update --no-dev"
 
+.PHONY:ssh-key
+ssh-key: ## 查看PHP容器SSH公钥
+	 docker exec -i php sh -c "cat ~/.ssh/id_rsa.pub"
+
 .PHONY:log-nginx
 log-nginx: ## 监听Nginx日志
 	 tail -f ./logs/nginx/*.log

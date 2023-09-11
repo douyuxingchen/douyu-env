@@ -84,10 +84,8 @@ kernelCommandLine = vsyscall=emulate
 在PHP容器中，在Dockerfile中已经自动生成了SSH的密钥，所以你只需要将此公钥加入到 coding 中即可。
 
 ```bash
-# 进入PHP容器
-docker exec -it php sh
 # 查看公钥
-cat ~/.ssh/id_rsa.pub
+docker exec -i php sh -c "cat ~/.ssh/id_rsa.pub"
 ```
 
 ### 项目启动错误
