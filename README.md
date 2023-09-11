@@ -3,12 +3,14 @@
 ## 搭建步骤
 根据自己的电脑系统去[Docker官网](https://www.docker.com)下载并安装docker环境
 
-## 环境配置文件更新
+## 前置准备
 
 ```bash
+cp docker-compose.example.yml docker-compose.yml
 cp .env.example .env
 ```
-在其中配置你的 coding 的账号和密码，此目的为了用 HTTP 协议拉取私有的 Composer 库。
+- 在其中配置你的 coding 的账号和密码，此目的为了用 HTTP 协议拉取私有的 Composer 库。  
+- 您可以修改yml文件，根据自己的情况确定要启用和关闭哪些容器。
 
 ### 启动容器
 ```bash
