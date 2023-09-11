@@ -15,9 +15,13 @@ jobs:
       CODING_URL: "http-basic.github.com"
       CODING_ACCOUNT: "example@gmail.com"
       CODING_PASSWORD: "example"
+      APP_ENV: "dev"
 
     steps:
     - uses: actions/checkout@v3
+
+    - name: Copy docker compose yml
+      run: cp docker-compose.example.yml docker-compose.yml
     
     - name: Build the Docker image
       run: make build
