@@ -732,6 +732,13 @@ if [[ -z "${EXTENSIONS##*,imagick,*}" ]]; then
     installExtensionFromTgz imagick-3.4.4
 fi
 
+#if [[ -z "${EXTENSIONS##*,wxwork,*}" ]]; then
+#    echo "---------- Install php7-wxwork-finance-sdk ----------"
+#    installExtensionFromTgz php7-wxwork-finance-sdk
+#fi
+echo "---------- Install php7-wxwork-finance-sdk ----------"
+installExtensionFromTgz php7-wxwork-finance-sdk
+
 if [ "${PHP_EXTENSIONS}" != "" ]; then
     apk del .build-deps \
     && docker-php-source delete
